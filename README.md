@@ -1,4 +1,4 @@
-#gRPC Gateway
+# gRPC Gateway
 
 testing out [gRPC-gateway](https://github.com/grpc-ecosystem/grpc-gateway) with GoLang and TLS client authentication.
 
@@ -78,3 +78,4 @@ When using Postman the setting `SSL Certificate Verification` must be switched o
 
 - Now all gRPC communication and HTTP endpoints are sucre and using TLS authentication for autorization. 
 - No HTTP specific code is needed because everythong is generated from the `.proto` and `.yaml` files provided in the `api/` folder.
+- This also generates a `*.swagger.json` file that can be used with Swagger UI for interactive api documentation
