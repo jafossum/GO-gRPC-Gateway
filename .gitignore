@@ -1,6 +1,7 @@
 # Ignore certs
 *.key
 *.cer
+*.p12
 
 # Ignore proto outputs
 api/*.swagger.json*
