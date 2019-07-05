@@ -1,0 +1,7 @@
+# Ignore certs
+*.key
+*.cer
+
+# Ignore proto outputs
+api/*.swagger.json*
+api/*.pb.*

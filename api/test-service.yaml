@@ -1,0 +1,10 @@
+ type: google.api.Service
+ config_version: 3
+
+ http:
+   rules:
+   - selector: api.YourService.Echo
+     post: /v1/api/echo
+     body: "*"
+   - selector: api.YourService.GetSome
+     get: /v1/api/getsome/{message_id}

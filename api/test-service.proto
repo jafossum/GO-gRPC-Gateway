@@ -1,0 +1,20 @@
+syntax = "proto3";
+package api;
+
+message StringMessage {
+  string value = 1;
+}
+
+message GetMessageRequest {
+        message SubMessage {
+          string subfield = 1;
+        }
+        string message_id = 1; // mapped to the URL
+        int64 revision = 2;    // becomes a parameter
+        SubMessage sub = 3;    // `sub.subfield` becomes a parameter
+      }
+
+service YourService {
+    rpc Echo(StringMessage) returns (StringMessage) {}
+    rpc GetSome(GetMessageRequest) returns (StringMessage){}
+}
