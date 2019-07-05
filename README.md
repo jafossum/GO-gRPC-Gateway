@@ -55,21 +55,21 @@ All certificates generated must be generated or placed in the `certificates` fol
 For any of this to work, the gPRC server must be running, as this is the one receiving all the request, either from the gRPC client, or through the HTTP proxy created by the grpc-gateway.
 
     $ cd server
-    $ go run main.go
+    $ go run server.go
 
 ### gRPC Client
 
 The test gRPC client only requests one of the gRPC endpoints before shutting down. Run this in a separate terminal
 
     $ cd client
-    $ go run main.go
+    $ go run client.go
 
 ### HTTP Proxy client
 
 The HTTP Proxy exposes an HTTP endpoint and talks with the gRPC gateway using the gateway definition file generated earlier. The client is set up so that a valid certificate must be presented also when using the REST api.
 
     $ cd httpServer
-    $ go run main.go
+    $ go run httpserver.go
 
 After this you can use [Postman](https://www.getpostman.com) to use the HTTP endpoints. For this to work, a valid certificate and key with the same CA cert authority as the gRPC server must be provided. For testing you may use the `client.crt` and `client.key` for this as well.
 When using Postman the setting `SSL Certificate Verification` must be switched off for self-signed CA certs.
