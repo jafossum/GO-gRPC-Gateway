@@ -52,7 +52,7 @@ All certificates generated must be generated or placed in the `certificates` fol
 
 ### gRPC Server
 
-For any of this to work, the gPRC server must be running, as this is the one receiving all the request, either from the gRPC client, or through the HTTP proxy created by the grpc-gateway.
+For any of this to work, the gPRC server must be running, as this is the one receiving all the request, either from the gRPC client, or through the HTTP proxy created by the grpc-gateway. gRPC server exposes port `50051`
 
     $ cd server
     $ go run server.go
@@ -66,7 +66,7 @@ The test gRPC client only requests one of the gRPC endpoints before shutting dow
 
 ### HTTP Proxy client
 
-The HTTP Proxy exposes an HTTP endpoint and talks with the gRPC gateway using the gateway definition file generated earlier. The client is set up so that a valid certificate must be presented also when using the REST api.
+The HTTP Proxy exposes an HTTPS endpoint and talks with the gRPC gateway using the gateway definition file generated earlier. The client is set up so that a valid certificate must be presented also when using the REST api. gRPC server exposes port `8081`
 
     $ cd httpServer
     $ go run httpserver.go
@@ -74,8 +74,17 @@ The HTTP Proxy exposes an HTTP endpoint and talks with the gRPC gateway using th
 After this you can use [Postman](https://www.getpostman.com) to use the HTTP endpoints. For this to work, a valid certificate and key with the same CA cert authority as the gRPC server must be provided. For testing you may use the `client.crt` and `client.key` for this as well.
 When using Postman the setting `SSL Certificate Verification` must be switched off for self-signed CA certs.
 
+Load `.crt` and `.key` file into postman for Host: `https://localhost:8081`.
+
+endpoints:
+ - https://localhost:8081/v1/api/echo - POST body: application/JSON `{}` or `{ "value": "Your Name" }`
+ - https://localhost:8081/v1/api/getsome/1 - GET
+
+ For endpoint information look at [test-service.proto](./api/test-service.proto) and [test-service.yaml](./api/test-service.yaml) files.
+
 ### Summary
 
 - Now all gRPC communication and HTTP endpoints are sucre and using TLS authentication for autorization. 
-- No HTTP specific code is needed because everythong is generated from the `.proto` and `.yaml` files provided in the `api/` folder.
+- No HTTP specific code is needed because everything is generated from the `.proto` and `.yaml` files provided in the `api/` folder.
 - This also generates a `*.swagger.json` file that can be used with Swagger UI for interactive api documentation
+- HTTP Proxy can be reached on `https://localhost:8081`
