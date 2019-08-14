@@ -18,7 +18,16 @@ This will place three binaries in your `$GOBIN`;
 - protoc-gen-swagger
 - protoc-gen-go
 
-Make sure that your `$GOBIN` is in your `$PATH`
+Make sure that your `$GOBIN` is in your `$PATH`. 
+
+Example for you local `~/.profile` file
+```bash
+#GO Setup
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+export PATH=$PATH:/usr/local/go/bin
+```
 
 ## Usage
 
