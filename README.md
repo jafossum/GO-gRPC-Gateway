@@ -22,7 +22,7 @@ This will build an image with all tyhe depencies needed for building the require
 ### Generate files
 After building the `go-grpc-build` docker image, we can use this to generate the necessary files.
 
-*Remember to set target to your sitribution `linux`, `darwin` og `windows`*
+*Remember to set `TARGET` to your sitribution `linux`, `darwin` og `windows`*
 
     $ docker run --rm -v ${PWD}:/app -e TARGET=darwin go-grpc-build make
 
@@ -38,7 +38,7 @@ For any of this to work, the gPRC server must be running, as this is the one rec
     $ cd server
     $ ./server.out
 
-##### gRPC Client
+#### gRPC Client
 
 The test gRPC client only requests one of the gRPC endpoints before shutting down. Run this in a separate terminal
 
@@ -131,8 +131,8 @@ Alternatively run the generated binary
 After this you can use [Postman](https://www.getpostman.com) to use the HTTP endpoints. For this to work, a valid certificate and key with the same CA cert authority as the gRPC server must be provided. For testing you may use the `client.crt` and `client.key` for this as well.
 When using Postman the setting `SSL Certificate Verification` must be switched off for self-signed CA certs.
 
-### Summary
+## Summary
 
 - Now all gRPC communication and HTTP endpoints are sucre and using TLS authentication for autorization. 
-- No HTTP specific code is needed because everythong is generated from the `.proto` and `.yaml` files provided in the `api/` folder.
+- No HTTP specific code is needed because everything is generated from the `.proto` and `.yaml` files provided in the `api/` folder.
 - This also generates a `*.swagger.json` file that can be used with Swagger UI for interactive api documentation
