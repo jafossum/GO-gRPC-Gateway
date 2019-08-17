@@ -6,3 +6,6 @@
 # Ignore proto outputs
 api/*.swagger.json*
 api/*.pb.*
+
+# Ignore .out files
+*.out
