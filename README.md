@@ -55,6 +55,15 @@ The HTTP Proxy exposes an HTTP endpoint and talks with the gRPC gateway using th
 After this you can use [Postman](https://www.getpostman.com) to use the HTTP endpoints. For this to work, a valid certificate and key with the same CA cert authority as the gRPC server must be provided. For testing you may use the `client.crt` and `client.key` for this as well.
 When using Postman the setting `SSL Certificate Verification` must be switched off for self-signed CA certs.
 
+#### Postman
+Load `.crt` and `.key` file into postman for Host: `https://localhost:8081`.
+
+endpoints:
+ - https://localhost:8081/v1/api/echo - POST body: application/JSON `{}` or `{ "value": "Your Name" }`
+ - https://localhost:8081/v1/api/getsome/1 - GET
+
+ For endpoint information look at [test-service.proto](./api/test-service.proto) and [test-service.yaml](./api/test-service.yaml) files.
+
 ## Native Installation
 
 The best way to test and use this repo is by following the docker description above. If you want to make this work on your local system, then keep on reading :)
@@ -73,7 +82,16 @@ This will place three binaries in your `$GOBIN`;
 - protoc-gen-swagger
 - protoc-gen-go
 
-Make sure that your `$GOBIN` is in your `$PATH`
+Make sure that your `$GOBIN` is in your `$PATH`. 
+
+Example for you local `~/.profile` file
+```bash
+#GO Setup
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+export PATH=$PATH:/usr/local/go/bin
+```
 
 ### Usage
 
@@ -97,7 +115,7 @@ To generate only the binary files:
 
 #### gRPC Server
 
-For any of this to work, the gPRC server must be running, as this is the one receiving all the request, either from the gRPC client, or through the HTTP proxy created by the grpc-gateway.
+For any of this to work, the gPRC server must be running, as this is the one receiving all the request, either from the gRPC client, or through the HTTP proxy created by the grpc-gateway. gRPC server exposes port `50051`
 
     $ cd server
     $ go run server.go
@@ -119,7 +137,7 @@ Alternatively run the generated binary
 
 #### HTTP Proxy client
 
-The HTTP Proxy exposes an HTTP endpoint and talks with the gRPC gateway using the gateway definition file generated earlier. The client is set up so that a valid certificate must be presented also when using the REST api.
+The HTTP Proxy exposes an HTTPS endpoint and talks with the gRPC gateway using the gateway definition file generated earlier. The client is set up so that a valid certificate must be presented also when using the REST api. gRPC server exposes port `8081`
 
     $ cd httpServer
     $ go run httpserver.go
@@ -131,8 +149,18 @@ Alternatively run the generated binary
 After this you can use [Postman](https://www.getpostman.com) to use the HTTP endpoints. For this to work, a valid certificate and key with the same CA cert authority as the gRPC server must be provided. For testing you may use the `client.crt` and `client.key` for this as well.
 When using Postman the setting `SSL Certificate Verification` must be switched off for self-signed CA certs.
 
+#### Postman
+Load `.crt` and `.key` file into postman for Host: `https://localhost:8081`.
+
+endpoints:
+ - https://localhost:8081/v1/api/echo - POST body: application/JSON `{}` or `{ "value": "Your Name" }`
+ - https://localhost:8081/v1/api/getsome/1 - GET
+
+ For endpoint information look at [test-service.proto](./api/test-service.proto) and [test-service.yaml](./api/test-service.yaml) files.
+
 ## Summary
 
 - Now all gRPC communication and HTTP endpoints are sucre and using TLS authentication for autorization. 
 - No HTTP specific code is needed because everything is generated from the `.proto` and `.yaml` files provided in the `api/` folder.
 - This also generates a `*.swagger.json` file that can be used with Swagger UI for interactive api documentation
+- HTTP Proxy can be reached on `https://localhost:8081`
