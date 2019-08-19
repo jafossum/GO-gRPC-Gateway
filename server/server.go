@@ -28,7 +28,7 @@ type server struct{}
 // Echo implements YourService.Echo
 func (s *server) Echo(ctx context.Context, in *pb.StringMessage) (*pb.StringMessage, error) {
 	log.Printf("Received: %v", in.Value)
-	return &pb.StringMessage{Value: "Hello "}, nil
+	return &pb.StringMessage{Value: fmt.Sprintf("Hello %s", in.Value)}, nil
 }
 
 // GetSome implements YourService.GetSome
