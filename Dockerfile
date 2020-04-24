@@ -1,4 +1,4 @@
-FROM golang:1.12
+FROM golang:1.13
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
