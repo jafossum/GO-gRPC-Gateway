@@ -6,10 +6,10 @@ SERVICE=./api/test-service
 all: proto binaries
 
 proto:
-	protoc -I /usr/local/include -I . -I ${GOPATH}/src --go_out=plugins=grpc:. ${SERVICE}.proto
-	protoc -I /usr/local/include -I . -I ${GOPATH}/src -I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+	protoc  -I . -I ${GOPATH}/src --go_out=plugins=grpc:. ${SERVICE}.proto
+	protoc  -I . -I ${GOPATH}/src -I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
 	--grpc-gateway_out=logtostderr=true,grpc_api_configuration=${SERVICE}.yaml:. ${SERVICE}.proto
-	protoc -I /usr/local/include -I . -I ${GOPATH}/src -I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+	protoc  -I . -I ${GOPATH}/src -I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
      --swagger_out=logtostderr=true,grpc_api_configuration=${SERVICE}.yaml:. ${SERVICE}.proto
 
 binaries:
